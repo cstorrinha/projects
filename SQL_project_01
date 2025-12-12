@@ -59,17 +59,17 @@ insert into Fornecimento(CodFor, CodPeca, CodProj, data, Qtd) values(1, 2, 2, Co
 insert into Fornecimento(CodFor, CodPeca, CodProj, data, Qtd) values(2, 3, 3, Convert(date, '01-01-2022', 103), 50 );
 
 
--- Remover todos os registos de fornecimento de peÁas com uma dada cor-- 
+-- Remover todos os registos de fornecimento de pe√ßas com uma dada cor-- 
 delete f from Fornecimento f
 left join Peca p
 on f.codPeca = p.codPeca
 where p.cor = 'amarelo';
 
--- Alter o a cor de todas as PeÁas para Vermelho--
+-- Alter o a cor de todas as Pe√ßas para Vermelho--
 update Peca
 set cor = 'vermelho';
 
--- Alter a Cidade do Fornecedor ìArmindo LDAî, ou outro a gosto, para ìParisî--
+-- Alter a Cidade do Fornecedor ‚ÄúArmindo LDA‚Äù, ou outro a gosto, para ‚ÄúParis‚Äù--
 update Fornecedor
 set cidade = 'Paris'
 where FNome = 'Anacleto'
@@ -86,7 +86,7 @@ select *
 from projeto
 where cidade like '%lisboa%'
 
--- c Mostrar os cÛdigos dos fornecedores do projeto J1. 
+-- c Mostrar os c√≥digos dos fornecedores do projeto J1. 
 create view fornecedoresProjecto1 as
 select codFor from fornecimento
 where codProj = 1
@@ -101,7 +101,7 @@ inner join fornecedor fo
 	on fo.CodFor = f.CodFor
 where fo.CodFor = 1
 
--- e Mostrar as cores das peÁas fornecidas pelo fornecedor F1.  
+-- e Mostrar as cores das pe√ßas fornecidas pelo fornecedor F1.  
 create view cores_f1 as
 select f.codfor, p.pnome, p.cor
 from peca p
@@ -111,7 +111,7 @@ inner join fornecedor f
 on fr.codfor = f.codfor
 where f.codfor = 1
 
--- f Mostrar os cÛdigos dos fornecedores dos projetos J1 e J2.  
+-- f Mostrar os c√≥digos dos fornecedores dos projetos J1 e J2.  
 create view codFornecedores_1_2 as
 select distinct fo.CodFor
 from fornecedor fo
@@ -121,7 +121,7 @@ inner join projeto p
 on p.CodProj = f.CodProj
 where p.CodProj in (1,2)
 
--- g Mostrar os cÛdigos das peÁas fornecidas para algum projeto em Lisboa.  
+-- g Mostrar os c√≥digos das pe√ßas fornecidas para algum projeto em Lisboa.  
 
 create view vg as
 select distinct pc.*
@@ -132,7 +132,7 @@ inner join projeto p
 on p.codproj = ft.codproj
 where p.cidade = 'Lisboa';
 
---h. Mostrar os cÛdigos dos fornecedores que forneceram uma peÁa vermelha para algum projeto em Lisboa ou no Porto.
+--h. Mostrar os c√≥digos dos fornecedores que forneceram uma pe√ßa vermelha para algum projeto em Lisboa ou no Porto.
 create or alter view vh as
 select distinct fr.*
 from fornecedor fr
@@ -144,7 +144,7 @@ inner join projeto p
 on p.codproj = ft.codproj
 where pc.cor Like '%Vermelho%' and p.cidade IN ('Porto','Lisboa');
 
--- i Mostrar os cÛdigos dos projetos fornecidos por todos os fornecedores que fornecem alguma peÁa vermelha.  
+-- i Mostrar os c√≥digos dos projetos fornecidos por todos os fornecedores que fornecem alguma pe√ßa vermelha.  
 create or alter view fornecedores_peca_vermelha as
 select p.codProj
 from projeto p
@@ -157,7 +157,7 @@ on pe.codPeca = f.codPeca
 where pe.cor like 'vermelh%'
 group by p.codProj
 
--- j Mostra o n˙mero total de projetos que tÍm como fornecedor o F3.  
+-- j Mostra o n√∫mero total de projetos que t√™m como fornecedor o F3.  
 create view total_projetos_fornecedor_c as
 select count(*) as total_projetos_fornecedor_c
 from fornecimento f
@@ -165,7 +165,7 @@ inner join fornecedor fd
 on fd.codFor = f.codFor
 where fd.fNome like 'F3'
 
--- k Mostrar o n˙mero de peÁas fornecidas por cada fornecedor.
+-- k Mostrar o n√∫mero de pe√ßas fornecidas por cada fornecedor.
 CREATE OR ALTER VIEW N_pecas as
 select f.FNome , COUNT(pe.CodPeca) as Pecas
 from Fornecedor f
@@ -175,7 +175,7 @@ inner join Peca pe
 on fo.CodPeca = pe.CodPeca
 group by f.FNome
 
--- l Mostrar peÁas que nunca foram fornecidas a qualquer projecto.  
+-- l Mostrar pe√ßas que nunca foram fornecidas a qualquer projecto.  
 create view pecas_sem_projeto as
 select *
 from peca
@@ -189,7 +189,7 @@ left join fornecimento fo
 where fo.CodProj is null
 
 
--- 5 a Mudar a cor de todas as peÁas com uma dada cor para outra cor. 
+-- 5 a Mudar a cor de todas as pe√ßas com uma dada cor para outra cor. 
 create or alter procedure mudar_cor (@novaCor varchar(10), @antiga varchar(10))
 as
 update Peca
@@ -199,7 +199,7 @@ where cor = @antiga;
 
 EXEc mudar_cor @antiga = 'Vermelha', @novaCor = 'Azul';
 
--- 5b Remover todos os registos de fornecimento de peÁas com uma dada cor.  
+-- 5b Remover todos os registos de fornecimento de pe√ßas com uma dada cor.  
 create or alter procedure rem_fornecimento2(@cor varchar(50))
 as
 BEGIN
@@ -212,7 +212,7 @@ END
 
 Exec rem_fornecimento2 @cor = 'preta';
 
--- 5c Obter o n˙mero total de projetos de um dado fornecedor especÌfico
+-- 5c Obter o n√∫mero total de projetos de um dado fornecedor espec√≠fico
 create or alter procedure TotalProj_Fornecedor
 (@CodForn int)
 as
@@ -220,10 +220,10 @@ select COUNT(fo.CodProj) as total_proj
 from fornecimento fo
 where fo.CodFor = @CodForn
 
--- 5d. Obtenha o n˙mero de peÁas fornecidas para um dado projecto.
+-- 5d. Obtenha o n√∫mero de pe√ßas fornecidas para um dado projecto.
 create or alter procedure numerodepecasporprojeto
 (@in_idprojeto int) as
-select SUM(ft.qtd) as Numero_De_PeÁas_De_Um_Projeto
+select SUM(ft.qtd) as Numero_De_Pe√ßas_De_Um_Projeto
 from fornecimento ft
 where ft.codproj = @in_idprojeto
 go
